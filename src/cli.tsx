@@ -13,6 +13,7 @@ import { searchCommand } from "./commands/search.js";
 import { readingSessionsCommand } from "./commands/reading-sessions.js";
 import { docsCommand } from "./commands/docs.js";
 import { tuiCommand } from "./commands/tui.js";
+import { mcpCommand } from "./commands/mcp.js";
 
 const program = new Command()
   .name("matter")
@@ -27,6 +28,7 @@ Common workflows:
   View highlights               matter annotations list --item <id> --all
   List all tags                 matter tags list
   Launch interactive TUI        matter tui
+  Run as an MCP server          matter mcp
 
 Run 'matter docs' for full API reference.`);
 
@@ -38,6 +40,7 @@ program.addCommand(tagsCommand);
 program.addCommand(readingSessionsCommand);
 program.addCommand(searchCommand);
 program.addCommand(tuiCommand);
+program.addCommand(mcpCommand);
 program.addCommand(docsCommand);
 program.addCommand(updateCommand);
 
