@@ -44,10 +44,15 @@ program.addCommand(mcpCommand);
 program.addCommand(docsCommand);
 program.addCommand(updateCommand);
 
-// Apply any previously downloaded update before doing anything else
-applyPendingUpdate();
-
 const args = process.argv.slice(2);
+
+// MCP clients launch `matter mcp` as a long-lived server; it never stages or applies updates,
+// so a dedicated MCP binary can't replace itself with a release that lacks the command
+const isMcpServer = args[0] === "mcp";
+
+// Apply any previously downloaded update before doing anything else
+if (!isMcpServer) applyPendingUpdate();
+
 const hasSubcommand = args.length > 0 && !args[0].startsWith("-");
 const hasFlags = args.some((a) => a.startsWith("-"));
 
@@ -62,6 +67,6 @@ if (!hasSubcommand && !hasFlags && process.stdout.isTTY) {
   }
 } else {
   // Download any available update in the background (applied on next run)
-  backgroundDownloadUpdate();
+  if (!isMcpServer) backgroundDownloadUpdate();
   await program.parseAsync(process.argv);
 }

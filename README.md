@@ -100,6 +100,8 @@ With Claude Code: `claude mcp add matter -- matter mcp`.
 
 Tools cover the account, items, search, annotations, tags, and reading sessions. In readonly mode the server hides write tools and rejects calls to them.
 
+`matter mcp` never downloads or applies updates; other `matter` commands keep the binary current.
+
 ### Pagination
 
 List commands support cursor-based pagination:
